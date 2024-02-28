@@ -108,37 +108,37 @@ def imprimirConjunto(conjunto):
 def graficar_venn(a, b, c):
     # Obtener longitudes de conjuntos y calcular intersecciones
     len_a, len_b, len_c = len(a), len(b), len(c)
-    intersection_ab = len(set(a) & set(b))
-    intersection_ac = len(set(a) & set(c))
-    intersection_bc = len(set(b) & set(c))
-    intersection_abc = len(set(a) & set(b) & set(c))
+    interseccion_ab = len(inter(a,b))
+    interseccion_ac = len(inter(a,c))
+    interseccion_bc = len(inter(b,c))
+    interseccion_abc = len(inter(inter(a,c),b))
 
     # Calcular las longitudes de los subconjuntos para el diagrama de Venn
-    solo_a = len_a - intersection_ab - intersection_ac + intersection_abc
-    solo_b = len_b - intersection_ab - intersection_bc + intersection_abc
-    solo_c = len_c - intersection_ac - intersection_bc + intersection_abc
-    inter_ab = intersection_ab - intersection_abc
-    inter_ac = intersection_ac - intersection_abc
-    inter_bc = intersection_bc - intersection_abc
+    solo_a = len_a - interseccion_ab - interseccion_ac + interseccion_abc
+    solo_b = len_b - interseccion_ab - interseccion_bc + interseccion_abc
+    solo_c = len_c - interseccion_ac - interseccion_bc + interseccion_abc
+    inter_ab = interseccion_ab - interseccion_abc
+    inter_ac = interseccion_ac - interseccion_abc
+    inter_bc = interseccion_bc - interseccion_abc
 
     # Crear el diagrama de Venn
-    venn_diagram = venn3(subsets=(solo_a, solo_b, inter_ab, solo_c, inter_ac, inter_bc, intersection_abc))
+    venn_diagram = venn3(subsets=(solo_a, solo_b, inter_ab, solo_c, inter_ac, inter_bc, interseccion_abc))
 
     # Asignar etiquetas de los conjuntos
     if venn_diagram.get_label_by_id('100') is not None:
-        venn_diagram.get_label_by_id('100').set_text('\n'.join(map(str, set(a) - set(b) - set(c))))
+        venn_diagram.get_label_by_id('100').set_text('\n'.join(map(str, resta(resta(a,b),c))))
     if venn_diagram.get_label_by_id('010') is not None:
-        venn_diagram.get_label_by_id('010').set_text('\n'.join(map(str, set(b) - set(a) - set(c))))
+        venn_diagram.get_label_by_id('010').set_text('\n'.join(map(str, resta(resta(b,a),c))))
     if venn_diagram.get_label_by_id('110') is not None:
-        venn_diagram.get_label_by_id('110').set_text('\n'.join(map(str, set(a) & set(b) - set(c))))
+        venn_diagram.get_label_by_id('110').set_text('\n'.join(map(str, resta(inter(a,b),c))))
     if venn_diagram.get_label_by_id('001') is not None:
-        venn_diagram.get_label_by_id('001').set_text('\n'.join(map(str, set(c) - set(a) - set(b))))
+        venn_diagram.get_label_by_id('001').set_text('\n'.join(map(str, resta(resta(c,a),b))))
     if venn_diagram.get_label_by_id('101') is not None:
-        venn_diagram.get_label_by_id('101').set_text('\n'.join(map(str, set(a) & set(c) - set(b))))
+        venn_diagram.get_label_by_id('101').set_text('\n'.join(map(str, resta(inter(a,c),b))))
     if venn_diagram.get_label_by_id('011') is not None:
-        venn_diagram.get_label_by_id('011').set_text('\n'.join(map(str, set(b) & set(c) - set(a))))
+        venn_diagram.get_label_by_id('011').set_text('\n'.join(map(str, resta(inter(b,c),a))))
     if venn_diagram.get_label_by_id('111') is not None:
-        venn_diagram.get_label_by_id('111').set_text('\n'.join(map(str, set(a) & set(b) & set(c))))
+        venn_diagram.get_label_by_id('111').set_text('\n'.join(map(str, inter(inter(a,b),c))))
 
     # Mostrar el diagrama de Venn
     plt.title("Diagrama de Venn de 3 conjuntos")
