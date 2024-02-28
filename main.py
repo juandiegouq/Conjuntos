@@ -1,4 +1,4 @@
-from matplotlib_venn import venn2
+
 from matplotlib_venn import venn3
 from matplotlib import pyplot as plt
 
@@ -62,8 +62,8 @@ def disj(c1, c2):
 
 def crearConjunto():
     cr = []
-    i = input("Número de elementos del conjunto")
-    for k in i:
+    i = int(input("Número de elementos del conjunto"))
+    for k in range(i):
         a = input("Número")
         cr.append(a)
     return cr
@@ -101,8 +101,7 @@ def imprimirConjunto(conjunto):
         print(e)
 
 
-from matplotlib import pyplot as plt
-from matplotlib_venn import venn3
+
 
 
 #funcion que grafica el diagrama de venn con 3 conjuntos
@@ -144,6 +143,7 @@ def graficar_venn(a, b, c):
     # Mostrar el diagrama de Venn
     plt.title("Diagrama de Venn de 3 conjuntos")
     plt.show()
+    
 
 
 #funcion principal del programa, muestra menus y hace la lógica
